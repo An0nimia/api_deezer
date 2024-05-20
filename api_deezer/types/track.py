@@ -33,11 +33,9 @@ class Track_Artist(BaseModel):
 	picture_medium: str
 	picture_big: str
 	picture_xl: str
-	#nb_album: int
-	#nb_fan: int
 	radio: bool
 	tracklist: str
-	#role: str
+	type: str
 
 
 class Track(BaseModel):

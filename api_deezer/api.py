@@ -5,7 +5,8 @@ from requests import get as req_get
 from .types import (
 	Track, Album,
 	Playlist, Artist,
-	Artist_TOP, Chart
+	Artist_TOP, Artist_Albums,
+	Artist_Radio, Artist_Related, Chart
 )
 
 from .exceptions.data import Error_Data_404
@@ -84,7 +85,7 @@ class API:
 		return Artist.model_validate(res)
 
 
-	def get_artist_top_JSON(self, id_artist: int, limit: int = 50) -> dict[str, Any]:
+	def get_artist_top_JSON(self, id_artist: int | str, limit: int = 50) -> dict[str, Any]:
 		'''
 
 		Function for getting Artist's top infos in JSON format
@@ -96,10 +97,64 @@ class API:
 		return self.__make_req(endpoint)
 
 
-	def get_artist_top(self, id_artist: int, limit: int = 50) -> Artist_TOP:
+	def get_artist_top(self, id_artist: int | str, limit: int = 50) -> Artist_TOP:
 		res = self.get_artist_top_JSON(id_artist, limit)
 
 		return Artist_TOP.model_validate(res)
+
+
+	def get_artist_radio_JSON(self, id_artist: int | str) -> dict[str, Any]:
+		'''
+
+		Function for getting Artist's radio infos in JSON format
+
+		'''
+
+		endpoint = f'/artist/{id_artist}/radio'
+
+		return self.__make_req(endpoint)
+
+
+	def get_artist_radio(self, id_artist: int | str) -> Artist_Radio:
+		res = self.get_artist_radio_JSON(id_artist)
+
+		return Artist_Radio.model_validate(res)
+
+
+	def get_artist_related_JSON(self, id_artist: int | str) -> dict[str, Any]:
+		'''
+
+		Function for getting Artist's radio infos in JSON format
+
+		'''
+
+		endpoint = f'/artist/{id_artist}/related'
+
+		return self.__make_req(endpoint)
+
+
+	def get_artist_related(self, id_artist: int | str) -> Artist_Related:
+		res = self.get_artist_related_JSON(id_artist)
+
+		return Artist_Related.model_validate(res)
+
+
+	def get_artist_albums_JSON(self, id_artist: int | str, limit: int = 50) -> dict[str, Any]:
+		'''
+
+		Function for getting Artist's albums infos in JSON format
+
+		'''
+
+		endpoint = f'/artist/{id_artist}/albums?limit={limit}'
+
+		return self.__make_req(endpoint)
+
+
+	def get_artist_albums(self, id_artist: int | str, limit: int = 50) -> Artist_Albums:
+		res = self.get_artist_albums_JSON(id_artist, limit)
+
+		return Artist_Albums.model_validate(res)
 
 
 	def get_playlist_JSON(self, id_playlist: int | str) -> dict[str, Any]:

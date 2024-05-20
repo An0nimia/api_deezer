@@ -16,7 +16,7 @@ from .explicit_content import (
 )
 
 
-class Artist_Album(BaseModel):
+class Album_Artist(BaseModel):
 	id: int
 	name: str
 	picture: str
@@ -24,6 +24,7 @@ class Artist_Album(BaseModel):
 	picture_medium: str
 	picture_big: str
 	picture_xl: str
+	tracklist: str
 	type: str
 
 
@@ -106,6 +107,6 @@ class Album(BaseModel):
 	explicit_content_lyrics: Explicit_Content_Lyrics
 	explicit_content_cover: Explicit_Content_Cover
 	contributors: list[Contributor]
-	artist: Artist_Album
+	artist: Album_Artist
 	type: str
 	tracks: Album_Tracks
