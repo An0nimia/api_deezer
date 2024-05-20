@@ -1,4 +1,8 @@
-from pydantic import BaseModel
+from pydantic import (
+	BaseModel, Field
+)
+
+from .album import Album_Track
 
 
 class Artist(BaseModel):
@@ -16,3 +20,8 @@ class Artist(BaseModel):
 	radio: bool
 	tracklist: str
 	type: str
+
+
+class Artist_TOP(BaseModel):
+	tracks: list[Album_Track] = Field(validation_alias = 'data')
+	total: int

@@ -1,7 +1,8 @@
 from unittest import TestCase
 
-from ..api import API
-from ..exceptions.data import Error_Data_404
+from api_deezer import API
+from api_deezer.utils import magic_link
+from api_deezer.exceptions.data import Error_Data_404
 
 
 class Test_Types_Serialization(TestCase):
@@ -20,6 +21,8 @@ class Test_Types_Serialization(TestCase):
 		)
 
 		for album_link in album_links:
+			type_media, album_link = magic_link(album_link)
+
 			try:
 				self.__api.get_album(album_link)
 			except Error_Data_404:
@@ -35,6 +38,8 @@ class Test_Types_Serialization(TestCase):
 		)
 		
 		for track_link in track_links:
+			type_media, track_link = magic_link(track_link)
+
 			track = self.__api.get_track(track_link)
 			print(track.explicit_content_lyrics)
 			print(track.explicit_content_cover)
@@ -51,6 +56,8 @@ class Test_Types_Serialization(TestCase):
 		)
 
 		for artist_link in artist_links:
+			type_media, artist_link = magic_link(artist_link)
+
 			self.__api.get_artist(artist_link)
 
 	def test_playlist(self):
@@ -63,6 +70,8 @@ class Test_Types_Serialization(TestCase):
 		)
 
 		for playlist_link in playlist_links:
+			type_media, playlist_link = magic_link(playlist_link)
+
 			playlist = self.__api.get_playlist(playlist_link)
 			print(playlist.tracks[0].explicit_content_lyrics)
 

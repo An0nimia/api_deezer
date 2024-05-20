@@ -23,7 +23,7 @@ class Artist_Album(BaseModel):
 	picture_small: str
 	picture_medium: str
 	picture_big: str
-	piOptionalcture_xl: str
+	picture_xl: str
 	type: str
 
 

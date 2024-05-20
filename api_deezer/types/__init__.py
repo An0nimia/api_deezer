@@ -1,7 +1,11 @@
 from .track import Track
 from .album import Album
 from .chart import Chart
-from .artist import Artist
+
+from .artist import (
+	Artist, Artist_TOP
+)
+
 from .playlist import Playlist
 
 
@@ -10,5 +14,6 @@ __all__ = (
 	'Album',
 	'Chart',
 	'Artist',
+	'Artist_TOP',
 	'Playlist'
 )

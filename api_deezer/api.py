@@ -4,72 +4,118 @@ from requests import get as req_get
 
 from .types import (
 	Track, Album,
-	Playlist, Artist, Chart
+	Playlist, Artist,
+	Artist_TOP, Chart
 )
 
-from .decorators.links import check_link
+from .exceptions.data import Error_Data_404
 
 
 class API:
 	__API_URL = 'https://api.deezer.com/'
 
 
-	@check_link(type_link = 'track')
-	def get_track_JSON(self, link: str) -> None:
+	def __make_req(self, endpoint: str):
+		c_api_url = f'{self.__API_URL}{endpoint}'
+		json_data: dict[str, Any] = req_get(c_api_url).json()
+		is_error: dict[str, Any] | None = json_data.get('error')
+
+		if is_error:
+			match is_error['type']:
+				case 'DataException':
+					raise Error_Data_404(endpoint)
+				case _:
+					raise Exception(f'Error {is_error['type']} unknown. Link {c_api_url}. Report this kindly :)')
+
+		return json_data
+
+
+	def get_track_JSON(self, id_track: int | str) -> dict[str, Any]:
 		'''
 
 		Function for getting Track's infos in JSON format
 
 		'''
 
+		endpoint = f'/track/{id_track}'
 
-	def get_track(self, link: str) -> Track:
-		res = self.get_track_JSON(link)
+		return self.__make_req(endpoint)
+
+
+	def get_track(self, id_track: int | str) -> Track:
+		res = self.get_track_JSON(id_track)
 
 		return Track.model_validate(res)  # https://docs.pydantic.dev/latest/concepts/models/#helper-functions
 
 
-	@check_link(type_link = 'album')
-	def get_album_JSON(self, link: str) -> None:
+	def get_album_JSON(self, id_album: int | str) -> dict[str, Any]:
 		'''
 
 		Function for getting Album's infos in JSON format
 
 		'''
 
+		endpoint = f'/album/{id_album}'
 
-	def get_album(self, link: str) -> Album:
-		res = self.get_album_JSON(link)
+		return self.__make_req(endpoint)
+
+
+	def get_album(self, id_album: int | str) -> Album:
+		res = self.get_album_JSON(id_album)
 
 		return Album.model_validate(res)
 
 
-	@check_link(type_link = 'artist')
-	def get_artist_JSON(self, link: str) -> None:
+	def get_artist_JSON(self, id_artist: int | str) -> dict[str, Any]:
 		'''
 
 		Function for getting Artist's infos in JSON format
 
 		'''
 
+		endpoint = f'/artist/{id_artist}'
 
-	def get_artist(self, link: str) -> Artist:
-		res = self.get_artist_JSON(link)
+		return self.__make_req(endpoint)
+
+
+	def get_artist(self, id_artist: int | str) -> Artist:
+		res = self.get_artist_JSON(id_artist)
 
 		return Artist.model_validate(res)
 
 
-	@check_link(type_link = 'playlist')
-	def get_playlist_JSON(self, link: str) -> None:
+	def get_artist_top_JSON(self, id_artist: int, limit: int = 50) -> dict[str, Any]:
+		'''
+
+		Function for getting Artist's top infos in JSON format
+
+		'''
+
+		endpoint = f'/artist/{id_artist}/top?limit={limit}'
+
+		return self.__make_req(endpoint)
+
+
+	def get_artist_top(self, id_artist: int, limit: int = 50) -> Artist_TOP:
+		res = self.get_artist_top_JSON(id_artist, limit)
+
+		return Artist_TOP.model_validate(res)
+
+
+	def get_playlist_JSON(self, id_playlist: int | str) -> dict[str, Any]:
 		'''
 
 		Function for getting Playlist's infos in JSON format
 
 		'''
 
+		endpoint = f'/playlist/{id_playlist}'
 
-	def get_playlist(self, link: str) -> Playlist:
-		res = self.get_playlist_JSON(link)
+		return self.__make_req(endpoint)
+
+
+	def get_playlist(self, id_playlist: int | str) -> Playlist:
+		res = self.get_playlist_JSON(id_playlist)
 
 		return Playlist.model_validate(res)
 
@@ -81,10 +127,9 @@ class API:
 
 		'''
 
-		method = 'chart'
-		url = f'{self.__API_URL}{method}'
+		endpoint = '/chart'
 
-		return req_get(url).json()
+		return self.__make_req(endpoint)
 
 
 	def get_chart(self) -> Chart:
