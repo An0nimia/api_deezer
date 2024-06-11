@@ -32,11 +32,11 @@ class API:
 
 
 	def get_track_JSON(self, id_track: int | str) -> dict[str, Any]:
-		'''
+		"""
 
 		Function for getting Track's infos in JSON format
 
-		'''
+		"""
 
 		endpoint = f'/track/{id_track}'
 
@@ -50,11 +50,11 @@ class API:
 
 
 	def get_album_JSON(self, id_album: int | str) -> dict[str, Any]:
-		'''
+		"""
 
 		Function for getting Album's infos in JSON format
 
-		'''
+		"""
 
 		endpoint = f'/album/{id_album}'
 
@@ -68,11 +68,11 @@ class API:
 
 
 	def get_artist_JSON(self, id_artist: int | str) -> dict[str, Any]:
-		'''
+		"""
 
 		Function for getting Artist's infos in JSON format
 
-		'''
+		"""
 
 		endpoint = f'/artist/{id_artist}'
 
@@ -86,11 +86,11 @@ class API:
 
 
 	def get_artist_top_JSON(self, id_artist: int | str, limit: int = 50) -> dict[str, Any]:
-		'''
+		"""
 
 		Function for getting Artist's top infos in JSON format
 
-		'''
+		"""
 
 		endpoint = f'/artist/{id_artist}/top?limit={limit}'
 
@@ -104,11 +104,11 @@ class API:
 
 
 	def get_artist_radio_JSON(self, id_artist: int | str) -> dict[str, Any]:
-		'''
+		"""
 
 		Function for getting Artist's radio infos in JSON format
 
-		'''
+		"""
 
 		endpoint = f'/artist/{id_artist}/radio'
 
@@ -122,11 +122,11 @@ class API:
 
 
 	def get_artist_related_JSON(self, id_artist: int | str) -> dict[str, Any]:
-		'''
+		"""
 
 		Function for getting Artist's radio infos in JSON format
 
-		'''
+		"""
 
 		endpoint = f'/artist/{id_artist}/related'
 
@@ -140,11 +140,11 @@ class API:
 
 
 	def get_artist_albums_JSON(self, id_artist: int | str, limit: int = 50) -> dict[str, Any]:
-		'''
+		"""
 
 		Function for getting Artist's albums infos in JSON format
 
-		'''
+		"""
 
 		endpoint = f'/artist/{id_artist}/albums?limit={limit}'
 
@@ -158,11 +158,11 @@ class API:
 
 
 	def get_playlist_JSON(self, id_playlist: int | str) -> dict[str, Any]:
-		'''
+		"""
 
 		Function for getting Playlist's infos in JSON format
 
-		'''
+		"""
 
 		endpoint = f'/playlist/{id_playlist}'
 
@@ -176,11 +176,11 @@ class API:
 
 
 	def get_chart_JSON(self) -> dict[str, Any]:
-		'''
+		"""
 
 		Function for getting Chart's infos in JSON format
 
-		'''
+		"""
 
 		endpoint = '/chart'
 

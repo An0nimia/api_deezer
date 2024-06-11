@@ -32,7 +32,7 @@ def magic_link(link: str) -> tuple[Type_Media, str]:
 	url_parsed = urlparse(link)
 
 	if 'deezer.page.link' == url_parsed.netloc:
-		url = req_get(link).url
+		url = req_get(link, timeout = 30).url
 		url_parsed_new = urlparse(url)
 		path = url_parsed_new.path
 	elif url_parsed.netloc in NOT_VERIFY:
