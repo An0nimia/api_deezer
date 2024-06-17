@@ -6,13 +6,14 @@ from api_deezer.exceptions.data import Error_Data_404
 
 
 class Test_Types_Serialization(TestCase):
-	def __init__(self, methodName: str = "runTest") -> None:
-		super().__init__(methodName)
-		self.__api = API()
+	__API = API()
+
 
 	def test_album(self):
 		"""
+
 		Test that json from album is serialized correctly
+
 		"""
 
 		album_links = (
@@ -27,10 +28,13 @@ class Test_Types_Serialization(TestCase):
 				self.__api.get_album(album_link)
 			except Error_Data_404:
 				pass
-	
+
+
 	def test_track(self):
 		"""
+
 		Test that json from track is serialized correctly
+
 		"""
 
 		track_links = (
@@ -43,6 +47,14 @@ class Test_Types_Serialization(TestCase):
 			track = self.__api.get_track(track_link)
 			print(track.explicit_content_lyrics)
 			print(track.explicit_content_cover)
+
+
+	def test_track_by_isrc(self):
+		assert self.__API.get_track_by_isrc('USUM71703861').isrc == 'USUM71703861'
+
+
+	def test_album_by_upc(self):
+		assert self.__API.get_album_by_upc('602557656527').upc == '602557656527'
 
 
 	def test_artist(self):
@@ -59,6 +71,7 @@ class Test_Types_Serialization(TestCase):
 			type_media, artist_link = magic_link(artist_link)
 
 			self.__api.get_artist(artist_link)
+
 
 	def test_playlist(self):
 		"""

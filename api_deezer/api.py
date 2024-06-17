@@ -43,6 +43,24 @@ class API:
 		return self.__make_req(endpoint)
 
 
+	def get_track_by_isrc_JSON(self, isrc: str) -> dict[str, Any]:
+		"""
+
+		Function for getting Track's infos in JSON format by ISRC
+
+		"""
+
+		endpoint = f'/track/isrc:{isrc}'
+
+		return self.__make_req(endpoint)
+
+
+	def get_track_by_isrc(self, isrc: str) -> Track:
+		res = self.get_track_by_isrc_JSON(isrc)
+
+		return Track.model_validate(res)
+
+
 	def get_track(self, id_track: int | str) -> Track:
 		res = self.get_track_JSON(id_track)
 
@@ -59,6 +77,24 @@ class API:
 		endpoint = f'/album/{id_album}'
 
 		return self.__make_req(endpoint)
+
+
+	def get_album_by_upc_JSON(self, upc:  int | str) -> dict[str, Any]:
+		"""
+
+		Function for getting Album's infos in JSON format by UPC
+
+		"""
+
+		endpoint = f'/album/upc:{upc}'
+
+		return self.__make_req(endpoint)
+
+
+	def get_album_by_upc(self, upc: int | str) -> Album:
+		res = self.get_album_by_upc_JSON(upc)
+
+		return Album.model_validate(res)
 
 
 	def get_album(self, id_album: int | str) -> Album:
