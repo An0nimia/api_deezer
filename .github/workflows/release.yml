@@ -1,12 +1,11 @@
 name: Publish to PYPI
 
 on:
-    push:
+    workflow_run:
+        workflows: ["Test package"] # trunk-ignore(yamllint/quoted-strings)
+        types: [completed]
         branches:
-            - release
-    pull_request:
-        types: [ready_for_review]
-    workflow_dispatch:
+            - "release" # trunk-ignore(yamllint/quoted-strings)
 
 permissions:
     contents: read

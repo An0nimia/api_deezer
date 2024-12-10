@@ -25,7 +25,7 @@ class Test_Types_Serialization(TestCase):
 			type_media, album_link = magic_link(album_link)
 
 			try:
-				self.__api.get_album(album_link)
+				self.__API.get_album(album_link)
 			except Error_Data_404:
 				pass
 
@@ -38,13 +38,13 @@ class Test_Types_Serialization(TestCase):
 		"""
 
 		track_links = (
-			'https://api.deezer.com/track/916409', 'https://deezer.page.link/JvPGmTbTvAvQrzAq6'
+			'https://api.deezer.com/track/916409', 'https://deezer.page.link/JvPGmTbTvAvQrzAq6', 'https://api.deezer.com/track/367620991'
 		)
 		
 		for track_link in track_links:
 			type_media, track_link = magic_link(track_link)
 
-			track = self.__api.get_track(track_link)
+			track = self.__API.get_track(track_link)
 			print(track.explicit_content_lyrics)
 			print(track.explicit_content_cover)
 
@@ -70,7 +70,7 @@ class Test_Types_Serialization(TestCase):
 		for artist_link in artist_links:
 			type_media, artist_link = magic_link(artist_link)
 
-			self.__api.get_artist(artist_link)
+			self.__API.get_artist(artist_link)
 
 
 	def test_playlist(self):
@@ -85,7 +85,7 @@ class Test_Types_Serialization(TestCase):
 		for playlist_link in playlist_links:
 			type_media, playlist_link = magic_link(playlist_link)
 
-			playlist = self.__api.get_playlist(playlist_link)
+			playlist = self.__API.get_playlist(playlist_link)
 			print(playlist.tracks[0].explicit_content_lyrics)
 
 
@@ -94,7 +94,7 @@ class Test_Types_Serialization(TestCase):
 		Test that json from chart is serialized correctly
 		"""
 
-		self.__api.get_chart()
+		self.__API.get_chart()
 
 
 	def test_search(self):
@@ -102,5 +102,5 @@ class Test_Types_Serialization(TestCase):
 		Test that json from search is serialized correctly
 		"""
 
-		self.__api.search('eminem')
+		self.__API.search('eminem')
 		#pp(res)
