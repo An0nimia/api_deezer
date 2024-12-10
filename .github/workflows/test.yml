@@ -40,6 +40,6 @@ jobs:
             - name: Install pytest
               run: |
                   pip install pytest poetry
-                  poetry install
+                  poetry install .
             - name: Run Tests
               run: pytest
