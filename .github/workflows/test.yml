@@ -39,7 +39,7 @@ jobs:
               run: python -c "import sys; print(sys.version)"
             - name: Install pytest
               run: |
-                  pip install pytest poetry
-                  poetry install .
+                  pip install pytest
+                  pip install .
             - name: Run Tests
               run: pytest
