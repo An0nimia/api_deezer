@@ -50,11 +50,11 @@ class Test_Types_Serialization(TestCase):
 
 
 	def test_track_by_isrc(self):
-		assert self.__API.get_track_by_isrc('USUM71703861').isrc == 'USUM71703861'
+		assert self.__API.get_track_by_isrc('USUM71703861').isrc == 'USUM71703861' # trunk-ignore(bandit/B101)
 
 
 	def test_album_by_upc(self):
-		assert self.__API.get_album_by_upc('602557656527').upc == '602557656527'
+		assert self.__API.get_album_by_upc('602557656527').upc == '602557656527' # trunk-ignore(bandit/B101)
 
 
 	def test_artist(self):
