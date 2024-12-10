@@ -4,7 +4,7 @@ from requests import get as req_get
 
 from .types import (
 	Track, Album,
-	Playlist, Artist,
+	Playlist, Artist, Search,
 	Artist_TOP, Artist_Albums,
 	Artist_Radio, Artist_Related, Chart
 )
@@ -229,9 +229,15 @@ class API:
 		return Chart.model_validate(res)
 
 
-	def search(self, q: str, obj: bool = True) -> dict[str, Any]:
+	def search_JSON(self, q: str) -> dict[str, Any]:
 		method = 'search'
 		url = f'{self.__API_URL}{method}?q={q}'
 		res = req_get(url).json()
 
 		return res
+
+
+	def search(self, q: str) -> Search:
+		res = self.search_JSON(q)
+
+		return Search.model_validate(res)
