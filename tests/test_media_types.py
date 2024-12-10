@@ -102,5 +102,5 @@ class Test_Types_Serialization(TestCase):
 		Test that json from search is serialized correctly
 		"""
 
-		self.__API.search('eminem')
+		self.__API.search('artist: eminem')
 		#pp(res)

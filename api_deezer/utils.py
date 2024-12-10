@@ -1,7 +1,10 @@
 from enum import StrEnum
 
-from urllib.parse import urlparse
 from requests import get as req_get
+
+from urllib.parse import (
+	urlparse, ParseResult
+)
 
 from .exceptions.links import (
 	Invalid_Link, Error_Making_Link
@@ -29,7 +32,8 @@ types_media = {
 
 
 def magic_link(link: str) -> tuple[Type_Media, str]:
-	url_parsed = urlparse(link)
+	right_url: tuple[bool, ParseResult] = is_deezer_url(link, True)  #pyright: ignore [reportAssignmentType]
+	url_parsed: ParseResult = right_url[1]
 
 	if 'deezer.page.link' == url_parsed.netloc:
 		url = req_get(link, timeout = 30).url
@@ -48,3 +52,12 @@ def magic_link(link: str) -> tuple[Type_Media, str]:
 		raise Error_Making_Link(link)
 
 	return types_media[type_media], id_media
+
+
+def is_deezer_url(link: str, return_parser: bool = False) -> bool | tuple[bool, ParseResult]:
+	url_parsed = urlparse(link)
+
+	if return_parser:
+		return (url_parsed.netloc in VALID_DOMAINS, url_parsed)
+
+	return (url_parsed.netloc in VALID_DOMAINS)
